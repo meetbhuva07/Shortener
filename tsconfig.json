@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "jsx": "react-jsx"
+  },
+  "include": ["src/**/*"] // Changed to include all files in src and subdirectories
+} // ...existing code...
