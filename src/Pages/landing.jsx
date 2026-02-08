@@ -45,7 +45,7 @@ const LandingPage = () => {
     value="item-1"
     className="border border-white/10 rounded-xl bg-white/5 backdrop-blur"
   >
-    <AccordionTrigger className="px-6 py-4 text-left text-lg font-semibold text-white hover:no-underline">
+    <AccordionTrigger className="px-6 py-4 text-left text-lg font-semibold text-white ">
       How does the Trimrr URL shortener work?
     </AccordionTrigger>
     <AccordionContent className="px-6 pb-5 text-gray-300 leading-relaxed">
@@ -59,7 +59,7 @@ const LandingPage = () => {
     value="item-2"
     className="border border-white/10 rounded-xl bg-white/5 backdrop-blur"
   >
-    <AccordionTrigger className="px-6 py-4 text-left text-lg font-semibold text-white hover:no-underline">
+    <AccordionTrigger className="px-6 py-4 text-left text-lg font-semibold text-white ">
       Do I need an account to use the app?
     </AccordionTrigger>
     <AccordionContent className="px-6 pb-5 text-gray-300 leading-relaxed">
@@ -72,7 +72,7 @@ const LandingPage = () => {
     value="item-3"
     className="border border-white/10 rounded-xl bg-white/5 backdrop-blur"
   >
-    <AccordionTrigger className="px-6 py-4 text-left text-lg font-semibold text-white hover:no-underline">
+    <AccordionTrigger className="px-6 py-4 text-left text-lg font-semibold text-white ">
       What analytics are available for my shortened URLs?
     </AccordionTrigger>
     <AccordionContent className="px-6 pb-5 text-gray-300 leading-relaxed">
