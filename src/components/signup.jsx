@@ -98,6 +98,15 @@ const Signup = () => {
         </div>
         <div className="space-y-1">
           <Input
+            name="email"
+            type="email"
+            placeholder="Enter Email"
+            onChange={handleInputChange}
+          />
+          {errors.email && <Error message={errors.email} />}
+        </div>
+        <div className="space-y-1">
+          <Input
             name="password"
             type="password"
             placeholder="Enter password"
@@ -117,7 +126,11 @@ const Signup = () => {
       </CardContent>
       <CardFooter>
         <Button onClick={handleSignup}>
-          {loading ? <BeatLoader size={10} color="#111827" /> : "create account"}
+          {loading ? (
+            <BeatLoader size={10} color="#111827" />
+          ) : (
+            "create account"
+          )}
         </Button>
       </CardFooter>
     </Card>
