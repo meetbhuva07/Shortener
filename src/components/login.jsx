@@ -52,25 +52,28 @@ useEffect(() => {
 
 
 const handleLogin = async () => {
-setErrors([])
-try {
-  const schema = Yup.object().shape({
-    email:Yup.string().email("Invalid Email").required("Email is Required"),
-    password:Yup.string().min(6,"password must be at least 6 characters").required("password is Required")
-  })
+  setErrors([])
+  try {
+    const schema = Yup.object().shape({
+      email: Yup.string().email("Invalid Email").required("Email is Required"),
+      password: Yup.string()
+        .min(6, "password must be at least 6 characters")
+        .required("password is Required"),
+    });
 
-  await schema.validate(fromData,{abortEarly:false})
-    // api call
-    await fnLogin()
-} catch (e) {
-  const newErrors = {}
+    await schema.validate(fromData, { abortEarly: false });
+    // API call
+    await fnLogin();
+  } catch (e) {
+    const newErrors = {};
 
-  e?.inner?.forEach((err) => {
-     newErrors[err.path] = err.message;    
-  });
+    e?.inner?.forEach((err) => {
+      newErrors[err.path] = err.message;
+    });
 
-  setErrors(newErrors)
-}
+    console.log("Validation Errors:", newErrors); // Debugging log
+    setErrors(newErrors);
+  }
 }
  
   return (

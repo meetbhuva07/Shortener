@@ -1,43 +1,48 @@
-import { Await, data } from "react-router-dom";
 import supabase, { supabaseUrl } from "./supabase";
-export async function login({ email, password }) {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
 
-  if (error) throw new Error(error.message);
-  return data;
+export async function login({ email, password }) {
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+    });
+    if (error) {
+        throw new Error(error.message);
+    }
+    return data;
 }
 
-export async function getcurrentUser() {
-  const { data: session, error } = await supabase.auth.getSession();
+export async function getCurrentUser() {
+    const { data: session, error } = await supabase.auth.getSession();
+    console.log(session);
+    if (!session.session) return null;
 
-  if (!session.session) return null;
-  if (error) throw new Error(error.message);
+    // const {data, error} = await supabase.auth.getUser();
 
-  return session.session?.user;
+    if (error) throw new Error(error.message);
+    return session.session?.user;
 }
 
 export async function signup({ name, email, password, profile_pic }) {
-  const fileName = `dp-${name.split(" ").join("-")}-${math.random()} `;
-  const { error: storageError } = await supabase.storage
-    .from("profile_pic")
-    .upload(fileName, profile_pic);
+    const fileName = `dp-${name.split(" ").join("-")}-${Math.random()}`;
 
-  if (storageError) throw new Error(storageError.message);
+    const { error: storageError } = await supabase.storage
+        .from("profile_pic")
+        .upload(fileName, profile_pic);
 
-  const {data, error} = await supabase.auth.signUp({
-    email,
-    password,
-    option: {
-      data :{
-        name,
-        profile_pic:`${supabaseUrl}/storage/v1/object/public/profile_pic/${fileName}`
-      },
-    },
-  });
+    if (storageError) throw new Error(storageError.message);
 
-  if (error) throw new Error(error.message);
-  return data;
+    const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+            data: {
+                name,
+                profile_pic: `${supabaseUrl}/storage/v1/object/public/profile_pic/${fileName}`,
+            },
+        },
+    });
+
+    if (error) throw new Error(error.message);
+
+    return data;
 }
