@@ -5,9 +5,16 @@ import { ChevronDownIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 function Accordion({
+  collapsible,
   ...props
 }) {
-  return <AccordionPrimitive.Root data-slot="accordion" {...props} />;
+  return (
+    <AccordionPrimitive.Root 
+      data-slot="accordion" 
+      collapsible={typeof collapsible === 'boolean' ? String(collapsible) : collapsible}
+      {...props} 
+    />
+  );
 }
 
 function AccordionItem({

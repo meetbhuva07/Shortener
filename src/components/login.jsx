@@ -94,8 +94,8 @@ const handleLogin = async () => {
     </div>
   </CardContent>
   <CardFooter>
-    <Button  onClick={handleLogin}>
-        {loading?<BeatLoader size={10} color='#111827'/>:"Login"}
+    <Button onClick={handleLogin} disabled={loading}>
+        {loading ? <BeatLoader size={10} color='#111827' /> : "Login"}
     </Button>
   </CardFooter>
 </Card>

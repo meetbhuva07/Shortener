@@ -6,6 +6,10 @@ export async function login({ email, password }) {
         password,
     });
     if (error) {
+        // map rate‑limit status to a clearer message
+        if (error.status === 429) {
+            throw new Error('Too many requests, please wait a moment and try again');
+        }
         throw new Error(error.message);
     }
     return data;
@@ -42,7 +46,12 @@ export async function signup({ name, email, password, profile_pic }) {
         },
     });
 
-    if (error) throw new Error(error.message);
+    if (error) {
+        if (error.status === 429) {
+            throw new Error('Too many requests, please wait a moment and try again');
+        }
+        throw new Error(error.message);
+    }
 
     return data;
 }
