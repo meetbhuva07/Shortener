@@ -1,6 +1,6 @@
 import supabase from "./supabase";
 
-export async function getClicksForUser(urlIds) {
+export async function getClicksForUrls(urlIds) {
   const { data, error } = await supabase
     .from("clicks")
     .select("*")
