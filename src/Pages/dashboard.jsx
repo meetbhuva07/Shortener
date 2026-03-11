@@ -56,7 +56,7 @@ const Dashboard = () => {
             <CardTitle>Links Created</CardTitle>
           </CardHeader>
           <CardContent>
-            <p>{urls?.length}</p>
+            <p>{urls?.length || 0}</p>
           </CardContent>
         </Card>
 
