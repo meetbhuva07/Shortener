@@ -134,9 +134,7 @@ const CreateLink = () => {
         {errors.longUrl && <Error message={errors.longUrl} />}
 
         <div className="flex items-center gap-2">
-          <Card className="p-2 bg-slate-950 text-white">
-            trimrr.in
-          </Card>
+          <Card className="p-2 bg-slate-950 text-white">trimrr.in</Card>
 
           <Input
             id="customUrl"
@@ -154,11 +152,7 @@ const CreateLink = () => {
             onClick={createNewLink}
             className="w-full sm:w-auto"
           >
-            {loading ? (
-              <BeatLoader size={10} color="#fff" />
-            ) : (
-              "Create"
-            )}
+            {loading ? <BeatLoader size={10} color="#fff" /> : "Create"}
           </Button>
         </DialogFooter>
       </DialogContent>

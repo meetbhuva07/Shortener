@@ -22,7 +22,7 @@ export const storeClicks = async ({ id, originalUrl }) => {
     const res = parser.getResult();
     const device = res.type || "desktop";
 
-    const response = await fetch("https://ipapi.co/json");
+    const response = await fetch("https://ipapi.co/json/");
     const { city, country_name: country } = await response.json();
 
     await supabase.from("clicks").insert({
@@ -42,7 +42,7 @@ export async function getClicksForUrl(user_id) {
   const { data, error } = await supabase
     .from("clicks")
     .select("*")
-    .eq("user_id", user_id);
+    .eq("url_id", url_id);
 
   if (error) {
     console.error(error.message);
