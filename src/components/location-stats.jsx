@@ -1,96 +1,83 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+"use client";
 
-// #region Sample data
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
-export default function Location({stats}) {
+export default function LocationLineChart({ stats = [] }) {
+
+  const cityCount = stats.reduce((acc, item) => {
+    const city = item.city || "Unknown";
+    acc[city] = (acc[city] || 0) + 1;
+    return acc;
+  }, {});
+
+  const total = Object.values(cityCount).reduce((a, b) => a + b, 0);
+
+  const cities = Object.entries(cityCount).map(([city, count]) => ({
+    city,
+    count,
+    total,
+  }));
+
+  // 🔥 Compact Tooltip
+  const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      const value = payload[0].value;
+      const total = payload[0].payload.total;
+      const percent = ((value / total) * 100).toFixed(1);
+
+      return (
+        <div className="bg-[#1f2937] border border-gray-600 px-2 py-1 rounded text-white text-xs">
+          <p>{label}</p>
+          <p>{value} ({percent}%)</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
-    <LineChart
-      style={{ width: '100%', maxWidth: '700px', height: '100%', maxHeight: '70vh', aspectRatio: 1.618 }}
-      responsive
-      data={data}
-      margin={{
-        top: 5,
-        right: 0,
-        left: 0,
-        bottom: 5,
-      }}
-    >
-      <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border-3)" />
-      <XAxis dataKey="name" stroke="var(--color-text-3)" />
-      <YAxis width="auto" stroke="var(--color-text-3)" />
-      <Tooltip
-        cursor={{
-          stroke: 'var(--color-border-2)',
-        }}
-        contentStyle={{
-          backgroundColor: 'var(--color-surface-raised)',
-          borderColor: 'var(--color-border-2)',
-        }}
-      />
-      <Legend />
-      <Line
-        type="monotone"
-        dataKey="pv"
-        stroke="var(--color-chart-1)"
-        dot={{
-          fill: 'var(--color-surface-base)',
-        }}
-        activeDot={{ r: 8, stroke: 'var(--color-surface-base)' }}
-      />
-      <Line
-        type="monotone"
-        dataKey="uv"
-        stroke="var(--color-chart-2)"
-        dot={{
-          fill: 'var(--color-surface-base)',
-        }}
-        activeDot={{ stroke: 'var(--color-surface-base)' }}
-      />
-      <RechartsDevtools />
-    </LineChart>
+    <div className="w-full h-[220px]"> {/* 👈 HEIGHT SMALL */}
+      <ResponsiveContainer width="100%" height="100%">
+        <LineChart data={cities} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
+
+          <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+
+          {/* 🔥 Small Labels */}
+          <XAxis
+            dataKey="city"
+            tick={{ fill: "#aaa", fontSize: 10 }}
+            angle={-20}
+            textAnchor="end"
+            interval={0}
+            height={50}
+          />
+
+          <YAxis
+            tick={{ fill: "#aaa", fontSize: 10 }}
+            width={30}
+          />
+
+          <Tooltip content={<CustomTooltip />} />
+
+          {/* 🔥 Thin Line */}
+          <Line
+            type="monotone"
+            dataKey="count"
+            stroke="#C778DD"
+            strokeWidth={1.5}
+            dot={{ r: 2 }}
+            activeDot={{ r: 4 }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
   );
-}
+} 

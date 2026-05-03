@@ -38,7 +38,7 @@ export const storeClicks = async ({ id, originalUrl }) => {
   }
 };
 
-export async function getClicksForUrl(user_id) {
+export async function getClicksForUrl(url_id) {
   const { data, error } = await supabase
     .from("clicks")
     .select("*")
