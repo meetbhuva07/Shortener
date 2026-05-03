@@ -75,7 +75,8 @@ const handleLogin = async () => {
 }
  
   return (
-    <Card className="bg-gray-900/50 ">
+    <div className="">
+      <Card className="bg-gray-900/50 ">
   <CardHeader>
     <CardTitle>Login</CardTitle>
     <CardDescription>to your account if you already have one </CardDescription>
@@ -97,6 +98,7 @@ const handleLogin = async () => {
     </Button>
   </CardFooter>
 </Card>
+    </div>
   )
 }
 
