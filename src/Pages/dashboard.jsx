@@ -80,16 +80,19 @@ const Dashboard = () => {
       </div>
 
       {/* 🔍 Search */}
-      <div className="relative w-full sm:max-w-md">
-        <Input
-          type="text"
-          placeholder="Filter links..."
-          value={searchQuery}
-          onChange={(e) => setsearchQuery(e.target.value)}
-          className="pr-10"
-        />
-        <Filter className="absolute top-1/2 -translate-y-1/2 right-3 size-5 text-gray-400" />
-      </div>
+      <div className="relative w-full">
+
+  <Input
+    type="text"
+    placeholder="Filter links..."
+    value={searchQuery}
+    onChange={(e) => setsearchQuery(e.target.value)}
+    className="pr-10 w-full"
+  />
+
+  <Filter className="absolute top-1/2 -translate-y-1/2 right-3 size-5 text-gray-400" />
+
+</div>
 
       {/* ❌ Error */}
       {error && <Error message={error?.message} />}
